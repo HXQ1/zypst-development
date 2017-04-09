@@ -17,7 +17,7 @@ This is Zypst development team's main way to communicate and develop Skript scri
         [-► Atom syntax theme package (https://atom.io/themes/SkriptDark-Syntax)
 
 # Basic explanation of our workflow:
-How the git workflow works:
-
-1)
+How the git workflow works?
+1) Think of a git repositery basically as a storage device with a main folder "zypst-development" (project's name).
+2) Inside the main folder (zypst-development) there is another folder named 
 
