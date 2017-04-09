@@ -10,9 +10,15 @@ The Zypst development team is required to use Github for development to ensure f
 
 3) Let's say you wanted to change to the code, or had an idea, you would create a secondary "branch" from the "master branch". A secondary branch will basically copy everything from the master branch put it into itself. You are free to edit code as you wish, when ever you edit the code, you will make a "commit". A commit is a snapchat of a edit you made to your code in your branch. You can use it to re-visit, kind of like a undo. 
 
+![alt text](https://guides.github.com/activities/hello-world/readme-edits.gif)
+
 4) After you are happy with your edits, you will make a "pull request", which is basically a request to merge. Once people review your code, a lead developer can decide weather to accept you're change or not. If accepted, your branch will be merged.
 
+![alt text](https://guides.github.com/activities/hello-world/branching.png)
+
 5) Youtube tutorial: https://www.youtube.com/watch?v=_ALeswWzpBo&t%5C=
+
+6) For full guide please read https://guides.github.com/activities/hello-world/, this is only a shortened version of the Github "Hello World" quide.
 
 > **Note:** Only admins can accept pull requests and edit the master branch.
 
