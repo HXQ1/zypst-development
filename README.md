@@ -1,4 +1,4 @@
-# Zypst Devlopment @Github
+# Zypst Devlopmenhttps://github.com/vivekiy/zypst-development/issuest @Github
 Zypst development is now streamlined using Github; amazing collaboration tools, time and task management and an efficient workflow.
 The Zypst development team is required to use Github for development to ensure fair and fast developemnt.
 
@@ -17,7 +17,7 @@ We are using a scripting language named "Skript" which is based upon Java, it's 
 
 4) After you are happy with your edits, you will make a "pull request", which is basically a request to merge. Once people review your code, a lead developer can decide weather to accept you're change or not. If accepted, your branch will be deleted.
 
-![alt text](https://guides.github.com/activities/hello-world/branching.png "Git workflow diagram")
+![alt text](https://guides.github.com/activities/hello-world/branching.png)
 
 # Software Requirements? (If needing help, please contact PixelatedBae)
 [-► Github account (https://github.com/)
