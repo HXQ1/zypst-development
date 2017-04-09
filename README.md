@@ -3,12 +3,6 @@
 Zypst development is now streamlined using Github; amazing collaboration tools, time and task management and an efficient workflow.
 The Zypst development team is required to use Github for development to ensure fair and fast developemnt.
 
-### What is this project?
-This is Zypst development team's main way to communicate and develop Skript scripts, code named "Zypst-development".
-
-### What language are we using and why?
-We are using a scripting language named "Skript" which is based upon Java, it's extremely easy to use and lightweight.
-
 ### How the git workflow works?
 1) Think of a git repositery basically as a storage device with a main folde named "zypst-development" (project's name).
 
