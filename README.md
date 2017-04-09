@@ -1,15 +1,13 @@
+> **Note** for development guide/documentation please check the wiki.
 ### Zypst Devlopment @Github
 Zypst development is now streamlined using Github; amazing collaboration tools, time and task management and an efficient workflow.
 The Zypst development team is required to use Github for development to ensure fair and fast developemnt.
 
-
 ### What is this project?
 This is Zypst development team's main way to communicate and develop Skript scripts, code named "Zypst-development".
 
-
 ### What language are we using and why?
 We are using a scripting language named "Skript" which is based upon Java, it's extremely easy to use and lightweight.
-
 
 ### How the git workflow works?
 1) Think of a git repositery basically as a storage device with a main folde named "zypst-development" (project's name).
@@ -24,7 +22,6 @@ We are using a scripting language named "Skript" which is based upon Java, it's 
 
 > **Note:** Only admins can accept pull requests and edit the master branch.
 
-
 ### Software Requirements? (If needing help, please contact PixelatedBae)
 [-► Github account (https://github.com/)
 
@@ -32,9 +29,9 @@ We are using a scripting language named "Skript" which is based upon Java, it's 
 
 [-► Atom.io
 	
-[-+► Atom package: Language-Skript (https://atom.io/packages/Language-Skript)
+> [-► Atom package: Language-Skript (https://atom.io/packages/Language-Skript)
 	
-[-+► Atom syntax theme package (https://atom.io/themes/SkriptDark-Syntax)
+> [-► Atom syntax theme package (https://atom.io/themes/SkriptDark-Syntax)
 	
 
 
