@@ -1,4 +1,4 @@
-# Zypst Devlopmenhttps://github.com/vivekiy/zypst-development/issuest @Github
+# Zypst Devlopment @Github
 Zypst development is now streamlined using Github; amazing collaboration tools, time and task management and an efficient workflow.
 The Zypst development team is required to use Github for development to ensure fair and fast developemnt.
 
@@ -15,9 +15,14 @@ We are using a scripting language named "Skript" which is based upon Java, it's 
 
 3) Let's say you wanted to change to the code, or had an idea, you would create a secondary "branch" from the "master branch". A secondary branch will basically copy everything from the master branch put it into itself. You are free to edit code as you wish, when ever you edit the code, you will make a "commit". A commit is a snapchat of a edit you made to your code in your branch. You can use it to re-visit, kind of like a undo. 
 
-4) After you are happy with your edits, you will make a "pull request", which is basically a request to merge. Once people review your code, a lead developer can decide weather to accept you're change or not. If accepted, your branch will be deleted.
+4) After you are happy with your edits, you will make a "pull request", which is basically a request to merge. Once people review your code, a lead developer can decide weather to accept you're change or not. If accepted, your branch will be merged.
 
 ![alt text](https://guides.github.com/activities/hello-world/branching.png)
+
+# Git workflow youtube tutorial:
+> <a href="http://www.youtube.com/watch?feature=player_embedded&v=_ALeswWzpBo&t=331s
+" target="_blank"><img src="http://img.youtube.com/vi/YOUTUBE_VIDEO_ID_HERE/0.jpg" 
+alt="IMAGE ALT TEXT HERE" width="240" height="180" border="10" /></a>
 
 # Software Requirements? (If needing help, please contact PixelatedBae)
 [-► Github account (https://github.com/)
