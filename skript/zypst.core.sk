@@ -1,2 +1,46 @@
 
-test
+
+
+variables: # Shows all the variables in this code #
+    {_newplayer} = 0
+    {_logincount} = 0
+    {_yesterdayscount} = 0
+    {_bestcount} = 0
+
+on first Login: # when a player join's for the first time it add 1 to New player's #
+    add 1 to {newplayer}
+
+on login: # evey time some 1 logs in add 1 to total Logins #
+    add 1 to {logincount}
+
+command /logincount: # the command that show the hq ""(Login count)"" #
+    permission: zypst.logincount:   # the permission they need #
+    permission message: &cYou dont have permission for this command! # no permission message #
+    trigger:
+        send "&h__________&8(&5&lZypst HQ&8)&d__________" to player  # 
+        send "&d" to player
+        send "&5&lNew Player >> &d%{newplayer}%" to player
+        send "&d" to player
+        send "&5&lToday's Total Login >> &d%{logincount}%" to player
+        send "&d" to player
+        send "&5&lYesterday's Total Login >> &d%{yesterdayscount}%" to player
+        send "&d" to player
+        send "&5&lBest Daily Login Total >> &d%{bestcount}%" to player
+        send "&d" to player
+        send "&d&l___________________________" to player
+
+on join: # send the player joins it send's this them this ""(below)"" 
+    if player has permission "zypst.logincount":
+        send "&d&l__________&8&l(&5&lZypst HQ&8&l)&d&l__________" to player
+        send "&d" to player
+        send "&5&lNew Player >> &d%{newplayer}%" to player
+        send "&d" to player
+        send "&5&lToday's Total Login >> &d%{logincount}%" to player
+        send "&d" to player
+        send "&5&lYesterday's Total Login >> &d%{yesterdayscount}%" to player
+        send "&d" to player
+        send "&5&lBest Daily Login Total >> &d%{bestcount}%" to player
+        send "&d" to player
+        send "&d&l___________________________" to player
+    else if player doesn't have permission "zypst.logincount":
+        stop
