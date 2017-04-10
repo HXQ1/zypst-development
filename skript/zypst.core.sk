@@ -2,10 +2,10 @@
 
 
 variables: # Shows all the variables in this code #
-    {_newplayer} = 0
-    {_logincount} = 0
-    {_yesterdayscount} = 0
-    {_bestcount} = 0
+    {newplayer} = 0
+    {logincount} = 0
+    {yesterdayscount} = 0
+    {bestcount} = 0
 
 on first Login: # when a player join's for the first time it add 1 to New player's #
     add 1 to {newplayer}
