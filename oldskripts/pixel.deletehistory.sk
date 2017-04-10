@@ -1,0 +1,15 @@
+command /deletehistory [<offline player>]:
+	aliases: /dh
+	permission: punish.deletehistory
+	permission message: &9Permissions> &7This requires rank "Helper".
+	trigger:
+		if arg-1 is set:
+			send "&7Deleting history of &e%arg-1%&7..."
+			delete {p.%arg-1%::*}
+			delete {punishgui.%arg-1%::*}
+			delete {reversed.p.%arg-1%::history::*}
+			delete {reversed.p.%arg-1%::*}
+			wait 0.5 second
+			send "&7All done!"
+		else:
+			send "&7Who's history do you want to delete?"

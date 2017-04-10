@@ -1,0 +1,210 @@
+command /p [<offline player>] [<text>]:
+	aliases: /punish
+	permission: punish.guihelper
+	permission message: &9Permissions> &7This requires rank "Helper".
+	trigger:
+		if arg-2 is not set:
+			send "&9Punish> &7Commands List:"
+			send "&6/punish &7<player> <reason> &6Mod"
+		if arg-2 is set:
+			if {p.%arg-1%::Chat1} is not set:
+				set {p.%arg-1%::Client3} to "tempban %arg-1% 30d"
+				set {p.%arg-1%::ClientL3} to "&fBan Duration: &e30.0 Days"
+				set {p.%arg-1%::Client2} to "tempban %arg-1% 30d"
+				set {p.%arg-1%::ClientL2} to "&fBan Duration: &e30.0 Days"
+				set {p.%arg-1%::ClientL1} to "&fBan Duration: &e1.0 Days"
+				set {p.%arg-1%::Client1} to "tempban %arg-1% 1d"
+				set {p.%arg-1%::General} to "tempban %arg-1% 4h"
+				set {p.%arg-1%::GeneralL} to "&fBan Duration: &e4.0 Hours"
+				set {p.%arg-1%::Chat1} to "tempmute %arg-1% 2h"
+				set {p.%arg-1%::ChatL1} to "&fMute Duration: &e2.0 Hours"
+				set {p.%arg-1%::Chat2} to "tempmute %arg-1% 1d"
+				set {p.%arg-1%::ChatL2} to "&fMute Duration: &e1.0 Days"
+				set {p.%arg-1%::Chat3} to "tempmute %arg-1% 30d"
+				set {p.%arg-1%::ChatL3} to "&fMute Duration: &e30.0 Days"
+			if {p.%arg-1%::pOffences.Chat1} is 1:
+				set {p.%arg-1%::Chat1} to "tempmute %arg-1% 4h"
+				set {p.%arg-1%::ChatL1} to "&fMute Duration: &e4.0 Hours"
+			if {p.%arg-1%::pOffences.Chat1} is 2:
+				set {p.%arg-1%::Chat1} to "tempmute %arg-1% 10h"
+				set {p.%arg-1%::ChatL1} to "&fMute Duration: &e10.0 Hours"
+			if {p.%arg-1%::pOffences.Chat1} is 3:
+				set {p.%arg-1%::Chat1} to "tempmute %arg-1% 1d"
+				set {p.%arg-1%::ChatL1} to "&fMute Duration: &e1.0 Days"
+			if {p.%arg-1%::pOffences.Chat1} is 4:
+				set {p.%arg-1%::Chat1} to "tempmute %arg-1% 1.4d"
+				set {p.%arg-1%::ChatL1} to "&fMute Duration: &e1.4 Days"
+			if {p.%arg-1%::pOffences.Chat1} is 5:
+				set {p.%arg-1%::Chat1} to "tempmute %arg-1% 2.8d"
+				set {p.%arg-1%::ChatL1} to "&fMute Duration: &e2.8 Days"
+			if {p.%arg-1%::pOffences.Chat1} is 6:
+				set {p.%arg-1%::Chat1} to "tempmute %arg-1% 7d"
+				set {p.%arg-1%::ChatL1} to "&fMute Duration: &e7.0 Days"
+			if {p.%arg-1%::pOffences.Chat1} is 7:
+				set {p.%arg-1%::Chat1} to "tempmute %arg-1% 14d"
+				set {p.%arg-1%::ChatL1} to "&fMute Duration: &e14.0 Days"
+			if {p.%arg-1%::pOffences.Chat1} is 8:
+				set {p.%arg-1%::Chat1} to "tempmute %arg-1% 30d"
+				set {p.%arg-1%::ChatL1} to "&fMute Duration: &e30.0 Days"
+			if {p.%arg-1%::pOffences.Chat1} is 9:
+				set {p.%arg-1%::Chat1} to "mute %arg-1%"
+				set {p.%arg-1%::ChatL1} to "&fMute Duration: &ePermanent"
+			if {p.%arg-1%::pOffences.Chat2} is 1:
+				set {p.%arg-1%::Chat2} to "tempmute %arg-1% 2d"
+				set {p.%arg-1%::ChatL2} to "&fMute Duration: &e2.0 Days"
+			if {p.%arg-1%::pOffences.Chat2} is 2:
+				set {p.%arg-1%::Chat2} to "tempmute %arg-1% 4d"
+				set {p.%arg-1%::ChatL2} to "&fMute Duration: &e4.0 Days"
+			if {p.%arg-1%::pOffences.Chat2} is 3:
+				set {p.%arg-1%::Chat2} to "tempmute %arg-1% 7d"
+				set {p.%arg-1%::ChatL2} to "&fMute Duration: &e7.0 Days"
+			if {p.%arg-1%::pOffences.Chat2} is 4:
+				set {p.%arg-1%::Chat2} to "tempmute %arg-1% 14d"
+				set {p.%arg-1%::ChatL2} to "&fMute Duration: &e14.0 Days"
+			if {p.%arg-1%::pOffences.Chat2} is 5:
+				set {p.%arg-1%::Chat2} to "tempmute %arg-1% 30d"
+				set {p.%arg-1%::ChatL2} to "&fMute Duration: &e30.0 Days"
+			if {p.%arg-1%::pOffences.Chat2} is 6:
+				set {p.%arg-1%::Chat2} to "mute %arg-1%"
+				set {p.%arg-1%::ChatL2} to "&fMute Duration: &ePermanent"
+			if {p.%arg-1%::pOffences.Chat3} is 1:
+				set {p.%arg-1%::Chat3} to "mute %arg-1%"
+				set {p.%arg-1%::ChatL3} to "&fMute Duration: &ePermanent"
+			if {p.%arg-1%::pOffences.General} is 1:
+				set {p.%arg-1%::General} to "tempban %arg-1% 8h"
+				set {p.%arg-1%::GeneralL} to "&fBan Duration: &e8.0 Hours"
+			if {p.%arg-1%::pOffences.General} is 2:
+				set {p.%arg-1%::General} to "tempban %arg-1% 16h"
+				set {p.%arg-1%::GeneralL} to "&fBan Duration: &e16.0 Hours"
+			if {p.%arg-1%::pOffences.General} is 3:
+				set {p.%arg-1%::General} to "tempban %arg-1% 1.4d"
+				set {p.%arg-1%::GeneralL} to "&fBan Duration: &e1.4 Days"
+			if {p.%arg-1%::pOffences.General} is 4:
+				set {p.%arg-1%::General} to "tempban %arg-1% 3d"
+				set {p.%arg-1%::GeneralL} to "&fBan Duration: &e3.0 Days"
+			if {p.%arg-1%::pOffences.General} is 5:
+				set {p.%arg-1%::General} to "tempban %arg-1% 7d"
+				set {p.%arg-1%::GeneralL} to "&fBan Duration: &e7.0 Days"
+			if {p.%arg-1%::pOffences.General} is 6:
+				set {p.%arg-1%::General} to "tempban %arg-1% 14d"
+				set {p.%arg-1%::GeneralL} to "&fBan Duration: &e14.0 Days"
+			if {p.%arg-1%::pOffences.General} is 7:
+				set {p.%arg-1%::General} to "tempban %arg-1% 30d"
+				set {p.%arg-1%::GeneralL} to "&fBan Duration: &e30.0 Days"
+			if {p.%arg-1%::pOffences.General} is 8:
+				set {p.%arg-1%::General} to "ban %arg-1%"
+				set {p.%arg-1%::GeneralL} to "&fBan Duration: &ePermanent"
+
+			if {p.%arg-1%::pOffences.Client1} is 1:
+				set {p.%arg-1%::Client1} to "tempban %arg-1% 2d"
+				set {p.%arg-1%::ClientL1} to "&fBan Duration: &e2.0 Days"
+			if {p.%arg-1%::pOffences.Client1} is 2:
+				set {p.%arg-1%::Client1} to "tempban %arg-1% 4d"
+				set {p.%arg-1%::ClientL1} to "&fBan Duration: &e4.0 Days"
+			if {p.%arg-1%::pOffences.Client1} is 3:
+				set {p.%arg-1%::Client1} to "tempban %arg-1% 7d"
+				set {p.%arg-1%::ClientL1} to "&fBan Duration: &e7.0 Days"
+			if {p.%arg-1%::pOffences.Client1} is 4:
+				set {p.%arg-1%::Client1} to "tempban %arg-1% 16d"
+				set {p.%arg-1%::ClientL1} to "&fBan Duration: &e16.0 Days"
+			if {p.%arg-1%::pOffences.Client1} is 5:
+				set {p.%arg-1%::Client1} to "tempban %arg-1% 30d"
+				set {p.%arg-1%::ClientL1} to "&fBan Duration: &e30.0 Days"
+			if {p.%arg-1%::pOffences.Client1} is 6:
+				set {p.%arg-1%::Client1} to "ban %arg-1%"
+				set {p.%arg-1%::ClientL1} to "&fBan Duration: &ePermanent"
+			if {p.%arg-1%::pOffences.Client2} is 1:
+				set {p.%arg-1%::Client2} to "ban %arg-1%"
+				set {p.%arg-1%::ClientL2} to "&fBan Duration: &ePermanent"
+			if {p.%arg-1%::pOffences.Client3} is 1:
+				set {p.%arg-1%::Client3} to "ban %arg-1%"
+				set {p.%arg-1%::ClientL3} to "&fBan Duration: &ePermanent"
+			if {p.%arg-1%::pOffences.Chat1} is not set:
+				set {p.%arg-1%::pOffences.Chat1} to 0
+				set {p.%arg-1%::pOffences.Chat2} to 0
+				set {p.%arg-1%::pOffences.Chat3} to 0
+				set {p.%arg-1%::pOffences.General} to 0
+				set {p.%arg-1%::pOffences.Client1} to 0
+				set {p.%arg-1%::pOffences.Client2} to 0
+				set {p.%arg-1%::pOffences.Client3} to 0
+			if player has permission "punish.guihelper" or "punish.guimod": #Access to only Level 1 punishments!
+				delete {reversed.p.%arg-1%::history::*}
+				set {_slot} to 0
+				loop {p.%arg-1%::history::*}:
+					add 1 to {_slot}
+				set {_reversedslot} to 1
+				loop {p.%arg-1%::history::*}:
+					set {reversed.p.%arg-1%::history::%{_reversedslot}%} to "%{p.%arg-1%::history::%{_slot}%}%"
+					remove 1 from {_slot}
+					add 1 to {_reversedslot}
+				open chest with 6 rows named "            Punish" to player
+				wait 3 tick
+
+				format slot 10 of player with name tag named "&a&lChat Offense" with lore "&7Verbal Abuse, Spam, Harrassment, Trolling, etc." to be unstealable
+				format slot 19 of player with light green glass named "&a&lLevel 1" with lore "&fPast Offences: &e%{p.%arg-1%::pOffences.Chat1}%||%{p.%arg-1%::ChatL1}%||||&7Light Spam||&f   Sending the same message 2-5 times||||&7Light Advertising||&f   'anyone want to play on minecade?'||||&7Hackusations||&f   'you're such a hacker!'||||&7Trolling/Misleading||&f   'press Ctrl+F4 to become op!'||||&2Give warning if 0 past Level 1 offences." to close then run [make player execute command "%{p.%arg-1%::Chat1}% %arg-2%"]->[add "&ePunishment Type: &fChatOffense||&eLevel: &f1||||&eReason: &f%arg-2%||||&eStaff: &f%player%||||&eDate: &f%now%" to {p.%arg-1%::history::*}]->[add 1 to {p.%arg-1%::pOffences.Chat1}]
+
+				format slot 12 of player with hopper named "&a&lGeneral Offense" with lore "&7Command/Map/Class/Skill exploits, etc." to be unstealable
+				format slot 21 of player with light green glass named "&a&lLevel 1" with lore "&fPast Offences: &e%{p.%arg-1%::pOffences.General}%||%{p.%arg-1%::GeneralL}%||||&7Team Killing||&f   Intentionally killing your team mates||||&7Trolling (Gameplay)||&f   Using abilities to trap players in spawn||||&7Map/Bug Exploiting||&f   Abusing an exploit to gain an advantage||||&2Give warning if 0 past Level 1 offences." to close then run [make player execute command "%{p.%arg-1%::General}% %arg-2%"]->[add "&ePunishment Type: &fExploiting||&eLevel: &f1||||&eReason: &f%arg-2%||||&eStaff: &f%player%||||&eDate: &f%now%" to {p.%arg-1%::history::*}]->[add 1 to {p.%arg-1%::pOffences.General}]
+
+				format slot 14 of player with arrow named "&a&lClient Mod" with lore "&7Speed, Fly, X-ray, Auto aim etc." to be unstealable
+				format slot 23 of player with light green glass named "&a&lLevel 1" with lore "&fPast Offences: &e%{p.%arg-1%::pOffences.Client1}%||%{p.%arg-1%::ClientL1}%||||&7Examples||&f   Damage Indicators||&f   Player Radar||||&2Give warning if 0 past Level 1 offences." to close then run [make player execute command "%{p.%arg-1%::Client1}% %arg-2%"]->[add "&ePunishment Type: &fHacking||&eLevel: &f1||||&eReason: &f%arg-2%||||&eStaff: &f%player%||||&eDate: &f%now%" to {p.%arg-1%::history::*}]->[add 1 to {p.%arg-1%::pOffences.Client1}]
+
+				format slot 16 of player with paper named "&a&lWarning" with lore "&2Give warning if 0 past Level 1 offences." to close then run [make player execute command "warn %arg-1% %arg-2%"]->[add "&ePunishment Type: &fWarning||||&eReason: &f%arg-2%||||&eStaff: &f%player%||||&eDate: &f%now%" to {p.%arg-1%::history::*}]
+				set {_slot} to 45
+				loop {reversed.p.%arg-1%::history::*}:
+					set {punishgui.%player%::*} to "%arg 1%"
+					add "%arg 2%" to {punishgui.%player%::*}
+					if "%loop-value%" contains "&ePunishment Type: &fChatOffense":
+						set slot {_slot} of player's current inventory to name tag named "&a&lChat Offense" with lore "%loop-value%"
+						add 1 to {_slot}
+					if "%loop-value%" contains "&ePunishment Type: &fHacking":
+						set slot {_slot} of player's current inventory to arrow named "&a&lClient Mod" with lore "%loop-value%"
+						add 1 to {_slot}
+					if "%loop-value%" contains "&ePunishment Type: &fExploiting":
+						set slot {_slot} of player's current inventory to hopper named "&a&lGeneral Offense" with lore "%loop-value%"
+						add 1 to {_slot}
+					if "%loop-value%" contains "&ePunishment Type: &fWarning":
+						set slot {_slot} of player's current inventory to paper named "&a&lWarning" with lore "%loop-value%"
+						add 1 to {_slot}
+					if "%loop-value%" contains "&ePunishment Type: &fOther":
+						set slot {_slot} of player's current inventory to redstone block named "&a&lPermanent Ban" with lore "%loop-value%"
+						add 1 to {_slot}
+					if "%loop-value%" contains "&ePunishment Type: &rOther":
+						set slot {_slot} of player's current inventory to enchanted book named "&a&lPermanent Report Ban" with lore "%loop-value%"
+						add 1 to {_slot}
+					if {_slot} = 54:
+						exit loop
+				if player has permission "punish.guimod": #Access all punishments!
+					format slot 28 of player with yellow glass named "&a&lLevel 2" with lore "&fPast Offences: &e%{p.%arg-1%::pOffences.Chat2}%||%{p.%arg-1%::ChatL2}%||||&7Medium Spam||   &fSending the same message 6-20 times||||&7Medium Advertising||   &f'join crap.server.net' - posted once||||&7Medium Abuse/Harassment||   &f'piss off you stupid newb'||   &f'waste of space, die'||   &f'kys  noob'" to close then run [make player execute command "%{p.%arg-1%::Chat2}% %arg-2%"]->[add "&ePunishment Type: &fChatOffense||&eLevel: &f2||||&eReason: &f%arg-2%||||&eStaff: &f%player%||||&eDate: &f%now%" to {p.%arg-1%::history::*}]->[add 1 to {p.%arg-1%::pOffences.Chat2}]
+					format slot 37 of player with red glass named "&a&lLevel 3" with lore "&fPast Offences: &e%{p.%arg-1%::pOffences.Chat3}%||%{p.%arg-1%::ChatL3}%||||&7Severe Spam||   &fSending the same message 20+ times (Bot)||||&7Severe Abuse/Harassment||   &f'go fucking die in a fire you fucking sack of shit'" to close then run [make player execute command "%{p.%arg-1%::Chat3}% %arg-2%"]->[add "&ePunishment Type: &fChatOffense||&eLevel: &f3||||&eReason: &f%arg-2%||||&eStaff: &f%player%||||&eDate: &f%now%" to {p.%arg-1%::history::*}]->[add 1 to {p.%arg-1%::pOffences.Chat3}]
+
+					format slot 32 of player with yellow glass named "&a&lLevel 2" with lore "&fPast Offences: &e%{p.%arg-1%::pOffences.Client2}%||%{p.%arg-1%::ClientL2}%||||&7Hacks||   &fForcefield||   &fSpeed Hack||   &fFly Hack||   &fOther Hack||" to close then run [make player execute command "%{p.%arg-1%::Client2}% %arg-2%"]->[add "&ePunishment Type: &fHacking||&eLevel: &f2||||&eReason: &f%arg-2%||||&eStaff: &f%player%||||&eDate: &f%now%" to {p.%arg-1%::history::*}]->[add 1 to {p.%arg-1%::pOffences.Client2}]
+					format slot 41 of player with red glass named "&a&lLevel 3" with lore "&fPast Offences: &e%{p.%arg-1%::pOffences.Client3}%||%{p.%arg-1%::ClientL3}%||||&7Hacks:||   &fCrash Client" to close then run [make player execute command "%{p.%arg-1%::Client3}% %arg-2%"]->[add "&ePunishment Type: &fHacking||&eLevel: &f3||||&eReason: &f%arg-2%||||&eStaff: &f%player%||||&eDate: &f%now%" to {p.%arg-1%::history::*}]->[add 1 to {p.%arg-1%::pOffences.Client3}]
+
+on inventory click:
+	if inventory name of player's current inventory is "            Punish":
+		cancel event
+		clicked slot >= 45
+		set {_clickedslot.%player%} to (clicked slot - 44)
+		if {reversed.p.%{punishgui.%player%::1}%::history::%{_clickedslot.%player%}%} is set:
+			if "%{reversed.p.%{punishgui.%player%::1}%::history::%{_clickedslot.%player%}%}%" contains "&eRemoved by: ":
+				send "" to console
+			else:
+				set {_reasonchanger.%player%} to "%{reversed.p.%{punishgui.%player%::1}%::history::%{_clickedslot.%player%}%}% ||||&eRemoved by: &f%player%||&eRemove Reason: &f%{punishgui.%player%::2}%"
+				set {reversed.p.%{punishgui.%player%::1}%::history::%{_clickedslot.%player%}%} to "%{_reasonchanger.%player%}%"
+				close player's inventory
+				delete {p.%{punishgui.%player%::1}%::history::*}
+				set {_slot} to 0
+				loop {reversed.p.%{punishgui.%player%::1}%::history::*}:
+					add 1 to {_slot}
+				set {_reversedslot} to 1
+				loop {reversed.p.%{punishgui.%player%::1}%::history::*}:
+					set {p.%{punishgui.%player%::1}%::history::%{_reversedslot}%} to "%{reversed.p.%{punishgui.%player%::1}%::history::%{_slot}%}%"
+					remove 1 from {_slot}
+					add 1 to {_reversedslot}
+				if "%{_reasonchanger.%player%}%" contains "ChatOffense":
+					make player execute "unmute %{punishgui.%player%::1}%"
+				if "%{_reasonchanger.%player%}%" contains "Hacking" or "Exploiting" or "Other":
+					make player execute "unban %{punishgui.%player%::1}%"
+				if "%{_reasonchanger.%player%}%" contains "Warning":
+					make player execute "unwarn %{punishgui.%player%::1}%"

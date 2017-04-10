@@ -1,0 +1,77 @@
+#------------------------------------------------------------------#
+#                                                                  #
+#Level 2: Administrative commands                                  #
+#                                                                  #
+#------------------------------------------------------------------#
+command /rank <player> <text>:
+	description: Sets player's rank.
+	usage: /rank <player> <rank>
+	permission: zypst.admin
+	permission message: This command requires rank Admin.
+	trigger:
+		make console execute command "/pex user %arg 1% group set %arg 2%"
+		message "%arg 1%'s rank has been set to %arg 2%."
+
+command /perm <text> <text>:
+	description: Adds a permission to a rank.
+	usage: /perm rank permmision
+	permission: zypst.admin
+	permission message: This requires rank Admin.
+	trigger:
+		make console execute command "/pex group %arg 1% add %arg 2%"
+		message "Permission %arg 2% has been added to rank %arg 1%"
+
+command /prefix <text> <text>:
+	description: Set's a ranks prefix.
+	usage: /prefix <rank> <prefix>
+	permission: zypst.admin
+	permission message: This command requires rank Admin.
+	trigger:
+		make console execute command "/pex group %arg 1% prefix %arg 2%"
+		message "Ranks %arg 1%'s prefix has been set to %arg 2%."
+
+command /rankpriority <text> <text>:
+	description: Set's a ranks priority in default permission ladder.
+	usage: /rankpriorty <rank> <priority>
+	permission: zypst.admin
+	permission message: This command requires rank Admin.
+	aliases: /rankp, /rp
+	trigger:
+		make console execute command "/pex group %arg 1% rank %arg 2%"
+		message "%arg 1% has been set to priority %arg 2%."
+
+command /removerank <player>:
+	description: Reset's a staff members rank rank.
+	usage: /removerank <player>
+	permission: zypst.admin
+	permission message: This command requires rank Admin.
+	aliases: /rr
+	trigger:
+		make console execute command "/pex user %arg 1% group set player"
+		message "%arg 1%'s rank has been reset."
+
+command /announce <text>:
+	description: Announces a message to all players.
+	usage: /announce <text>
+	permission: zypst.admin
+	permission message: This command requires rank Admin.
+	aliases: /anc
+	trigger:
+		message "&e&l[&4&lANNOUNCEMENT&e&l] &5&l%arg 1%" to all players
+
+command /skr:
+	description: Reloads all skripts.
+	usage: /skr
+	permission: zypst.admin
+	permission message: This command requires rank Admin.
+	trigger:
+		make player execute command "/skript reload all"
+
+#------------------------------------------------------------------#
+#                                                                  #
+#Level 1: Core game mechanics                                      #
+#                                                                  #
+#------------------------------------------------------------------#
+on region enter:
+	if "%region%" contains "portal":
+		make player execute command "/uc clear %player%"

@@ -1,0 +1,153 @@
+#------------------------------------------------------------------#
+#                                                                  #
+#Initiation                                                        #
+#                                                                  #
+#------------------------------------------------------------------#
+on first join: #Code for creating variables for newly joined players.
+	set {totalkills.%player%} to 0 #Variable for amount of kills player has.
+	set {totaldeaths.%player%} to 0 #Variable for amount of deaths player has.
+	set {currentks.%player%} to 0 #Variable for the current kill streak player has.
+	set {bestks.%player%} to 0 #Variable for best kill streak player has.
+	set {combatlogtime.%player%} to 0 #Variable for how much time player has to wait before it's safe to leave.
+	set {pvpreward.%player%} to 0 #Variable for rewarding player with a stack of arrows after 3 kills; when reach 3 kills gives arrows.
+	set {incombat.%player%} to false #Boolean variable stating weather player is in the act of finishing his combat log time or has already finished.
+	set {lastcombat.%player%} to "No One" #Boolean for last entity player has fought with.
+
+#------------------------------------------------------------------#
+#                                                                  #
+#Level 2: Commands and ingame administrative actions               #
+#                                                                  #
+#------------------------------------------------------------------#
+command /combatlog:
+	aliases: /cl
+	trigger:
+		if {combatlogtime.%player%} = 0:
+			message "&a&lYou are not in combat! You are safe to leave."
+		else:
+			message "&6&l%{combatlogtime.%player%}% seconds left before you are safe to leave."
+
+command /stats [<text>]:
+	trigger:
+		if arg 1 is not set:
+			message "&8&m---------- &5 &lYour stats &8&m----------"
+			message "&8&l- &5&lTotal Kills:&4&l %{totalkills.%player%}%"
+			message "&8&l- &5&lTotal Deaths:&4&l %{totaldeaths.%player%}%"
+			message "&8&l- &5&lCurrent Killstreak:&4&l %{currentks.%player%}%"
+			message "&8&l- &5&lBest Killstreak:&4&l %{bestks.%player%}%"
+			if {totaldeaths.%player%} = 0:
+				message "&8&l- &5&lMinimum of one death and kill required to calculate KDR."
+			else:
+				if {totalkills.%player%} = 0:
+					message "&8&l- &5&lMinimum of one death and kill required to calculate KDR."
+				else:
+					message "&8&l- &5&lKill Death Ratio:&4&l %{totalkills.%player%}/{totaldeaths.%player%}%"
+			if {incombat.%player%} is true:
+				message "&8&l- &5&lCurrently in combat:&4&l Yes"
+			else:
+				message "&8&l- &5&lCurrently in combat:&4&l No"
+			message "&8&l- &5&lCombat time left:&4&l %{combatlogtime.%player%}%"
+			message "&8&l- &5&lLast person in combat with:&4&l %{lastcombat.%player%}%"
+		if arg 1 is set:
+			message "&8&m----------&r &5&l%arg 1%'s stats &8&m----------&r"
+			message "&8&l- &5&lTotal Kills:&4&l %{totalkills.%arg 1%}%"
+			message "&8&l- &5&lTotal Deaths:&4&l %{totaldeaths.%arg 1%}%"
+			message "&8&l- &5&lCurrent Killstreak:&4&l %{currentks.%arg 1%}%"
+			message "&8&l- &5&lBest Killstreak:&4&l %{bestks.%arg 1%}%"
+			if {totaldeaths.%arg 1%} = 0:
+				message "&8&l- &5&lMinimum of one death required to calculate KDR"
+			else:
+				if {totalkills.%arg 1%} = 0:
+					message "&8&l- &5&lMinimum of one kill required to calculate KDR"
+				else:
+					message "&8&l- &5&lKill Death Ratio:&4&l %{totalkills.%arg 1%}/{totaldeaths.%arg 1%}%"
+			if {incombat.%arg 1%} is true:
+				message "&8&l- &5&lCurrently in combat: Yes"
+			else:
+				message "&8&l- &5&lCurrently in combat: No"
+			message "&8&l- &5&lCombat time left:&4&l %{combatlogtime.%arg 1%}%"
+			message "&8&l- &5&lLast person in combat with:&4&l %{lastcombat.%arg 1%}%"
+
+command /resetstats [<player>]:
+	trigger:
+		if player have permission "zypst.admin":
+			set {totalkills.%arg 1%} to 0
+			set {totaldeaths.%arg 1%} to 0
+			set {currentks.%arg 1%} to 0
+			set {bestks.%arg 1%} to 0
+			set {pvpreward.%arg 1%} to 0
+			set {combatlogtime.%arg 1%} to 0
+			set {incombat.%arg 1%} to false
+			set {lastcombat.%arg 1%} to "No One"
+			message "&a&l%arg 1%'s stats have been reset!" to player
+		else:
+			message "&c&lYou don't have permission!" to player
+
+#------------------------------------------------------------------#
+#                                                                  #
+#Level 1: Core Game Mechanics                                      #
+#                                                                  #
+#------------------------------------------------------------------#
+on join:
+	set {currentks.%player%} to 0
+	set {lastcombat.%player%} to "No One"
+	set {pvpreward.%player%} to 0
+	while player is online:
+		wait 1 second
+		if {incombat.%player%} is true:
+			if {combatlogtime.%player%} > 0:
+				subtract 1 from {combatlogtime.%player%}
+			else:
+				set {incombat.%player%} to false
+				message "&a&lYou are now safe to leave."
+
+on damage of a player:
+	attacker is a player
+	if {combatlogtime.%attacker%} = 0:
+		message "&c&lYou are now in combat!" to attacker
+	if {combatlogtime.%victim%} = 0:
+		message "&c&lYou are now in combat!" to victim
+	set {incombat.%attacker%} to true
+	set {combatlogtime.%attacker%} to 15
+	set {incombat.%victim%} to true
+	set {combatlogtime.%victim%} to 15
+	set {lastcombat.%victim%} to attacker
+	set {lastcombat.%attacker%} to victim
+	play wold hearts at the victim
+
+on death:
+	make victim execute "/kitpvp"
+	clear drops
+	victim is a player
+	attacker is a player
+	add 1 to {totalkills.%attacker%}
+	add 1 to {currentks.%attacker%}
+	give 1 golden apples to attacker
+	add 1 to {pvpreward.%attacker%}
+	if {pvpreward.%attacker%} = 3:
+		set {pvpreward.%attacker%} to 0
+		message "&a&lYou have gotten 3 consecutive kills, heres a reward!" to attacker
+		give 32 arrows to player
+	add 1 to {totaldeaths.%victim%}
+	set {incombat.%victim%} to false
+	set {combatlogtime.%victim%} to 0
+	set {currentks.%victim%} to 0
+	message "&a&lYou killed %victim%!" to attacker
+	message "&6&lYou now have a killstreak of %{currentks.%attacker%}%" to attacker
+	if {currentks.%attacker%} > {bestks.%attacker%}:
+		set {bestks.%attacker%} to {currentks.%attacker%}
+		message "&a&lYour new best killstreak is %{bestks.%attacker%}%!" to attacker
+	message "&c&lYou were killed by %attacker% %health of attacker% ❤!" to victim
+	message "&a&lYou are now safe to leave!" to victim
+	wait a tick
+	heal the victim
+	teleport victim to {kitpvplobby}
+
+
+on quit:
+	if {incombat.%player%} is true:
+		set {combatlogtime.%player%} to 0
+		execute console command "/tempban %player% 10m For combat logging."
+		add 1 to {totalkills.%{lastcombat.%player%}%}
+		broadcast "&c&l%player% has combat logged! They are banned for 10 minutes."
+		message "&c&l%player% has been banned through CombatLog. Plus 1 kill!" to {lastcombat.%player%}
+		set {incombat.%player%} to false

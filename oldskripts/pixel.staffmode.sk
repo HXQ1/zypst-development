@@ -1,0 +1,89 @@
+options:
+	Command: staff
+	StaffModePerm: staffmode.use
+	StaffModePermMessage: &cYou do not have permission!
+	RandomTPType: blaze rod
+	RandomTPName: &aRandom Teleport
+	RandomTPLore: &7(Right Click)
+	GamemodeChangerType: nether star
+	GamemodeChangerName: &aChange Gamemode
+	GamemodeChangerLore: &7(Right Click)
+	VanishType: light green dye
+	VanishName: &aVanish
+	VanishLore: &7(Right Click)
+	UnvanishType: gray dye
+	UnvanishName: &aUnvanish
+	UnvanishLore: &7(Right Click)
+	StaffModeOnMessage: &aStaff Mode Activated!
+	StaffModeOffMessage: &cStaff Mode Deactivated!
+	GamemodeMessage: &cGamemode updated.
+	VanishMessage: &cYou have Vanished yourself!
+	UnvanishMessage: &cYou have Unvanished yourself!
+
+command /{@Command} <text>:
+	permission: {@StaffModePerm}
+	permission message: {@StaffModePermMessage}
+	trigger:
+		if arg-1 is "on":
+			set {_count} to 0
+			loop 36 times:
+				set {inv.%player%.%{_count}%.main} to slot {_count} of player's inventory
+				add 1 to {_count}
+			set {inv.%player%.helmet.main} to player's helmet
+			set {inv.%player%.chest.main} to player's chestplate
+			set {inv.%player%.legs.main} to player's leggings
+			set {inv.%player%.feet.main} to player's boots
+			clear player's inventory
+			set slot 0 of player's inventory to {@RandomTPType} named "{@RandomTPName}" with lore "{@RandomTPLore}"
+			set slot 4 of player's inventory to {@GamemodeChangerType} named "{@GamemodeChangerName}" with lore "{@GamemodeChangerLore}"
+			set slot 8 of player's inventory to {@VanishType} named "{@VanishName}" with lore "{@VanishLore}"
+			set {staffmode.tools.%player%} to true
+			send "{@StaffModeOnMessage}"
+		if arg-1 is "off":
+			set {_count} to 0
+			loop 36 times:
+				set slot {_count} of player's inventory to {inv.%player%.%{_count}%.main}
+				add 1 to {_count}
+			set the helmet of player to {inv.%player%.helmet.main}
+			set the chestplate of player to {inv.%player%.chest.main}
+			set the leggings of player to {inv.%player%.legs.main}
+			set the boots of player to {inv.%player%.feet.main}
+			delete {staffmode.tools.%player%}
+			send "{@StaffModeOffMessage}"
+
+on rightclick holding a blaze rod:
+	if {staffmode.tools.%player%} is true:
+		set {_chosenOne} to a random player out of all players
+		teleport player to {_chosenOne}
+		delete {_chosenOne}
+on rightclick holding a nether star:
+	if {staffmode.tools.%player%} is true:
+		if player's gamemode is survival:
+			set player's gamemode to creative
+			send "{@GamemodeMessage}"
+		else:
+			set player's gamemode to survival
+			send "{@GamemodeMessage}"
+on rightclick holding a light green dye:
+	wait 1 tick
+	if {staffmode.tools.%player%} is true:
+		hide the player from all players
+		set slot 8 of player's inventory to {@UnvanishType} named "{@UnvanishName}" with lore "{@UnvanishLore}"
+		send "{@VanishMessage}"
+on rightclick holding a gray dye:
+	wait 1 tick
+	if {staffmode.tools.%player%} is true:
+		reveal the player from all players
+		set slot 8 of player's inventory to {@VanishType} named "{@VanishName}" with lore "{@VanishLore}"
+		send "{@UnvanishMessage}"
+on quit:
+	if {staffmode.tools.%player%} is true:
+		set {_count} to 0
+		loop 36 times:
+			set slot {_count} of player's inventory to {inv.%player%.%{_count}%.main}
+			add 1 to {_count}
+		set the helmet of player to {inv.%player%.helmet.main}
+		set the chestplate of player to {inv.%player%.chest.main}
+		set the leggings of player to {inv.%player%.legs.main}
+		set the boots of player to {inv.%player%.feet.main}
+		delete {staffmode.tools.%player%}
