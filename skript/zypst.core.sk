@@ -1,25 +1,147 @@
-variables: # Shows all the variables in this code #
-    {newplayer} = 0
-    {logincount} = 0
+#------------------------------------------------------------------#
+#Variables                                                         #
+#------------------------------------------------------------------#
+#
 
-on first Login: # when a player join's for the first time it add 1 to New player's #
-    add 1 to {newplayer}
 
-on login: # evey time some 1 logs in add 1 to total Logins #
-    add 1 to {logincount}
+#------------------------------------------------------------------#
+#Options                                                           #
+#------------------------------------------------------------------#
+options:
+	prefix = "&2Zypst >>&7"
 
-command /logincount: # the command that show the hq ""(Login count)"" #
-    permission: zypst.logincount:   # the permission they need #
-    permission message: &cYou dont have permission for this command! # no permission message #
-    trigger:
-        send "&h__________&8(&5&lZypst HQ&8)&d__________" to player  # 
-        send "&d" to player
-        send "&5&lNew Player >> &d%{newplayer}%" to player
-        send "&d" to player
-        send "&5&lToday's Total Login >> &d%{logincount}%" to player
-        send "&d" to player
-        send "&5&lYesterday's Total Login >> &d%{yesterdayscount}%" to player
-        send "&d" to player
-        send "&5&lBest Daily Login Total >> &d%{bestcount}%" to player
-        send "&d" to player
-        send "&d&l___________________________" to player
+#------------------------------------------------------------------#
+#Initiation                                                        #
+#------------------------------------------------------------------#
+
+
+#------------------------------------------------------------------#
+#Punish                                                            #
+#------------------------------------------------------------------#
+command /punish [<offline player>]:
+	aliases: /p,
+	permission: zypst.apprentice
+	permission message: {@prefix} &7This command/action requires you to have the rank "&2Apprentice&7".
+  trigger:
+    if arg-2 is not set:
+			message "{@prefix} Correct usage: /p <player>."
+		else:
+      if {%arg 1%.punish.clean} is true:
+#Sets punishing variables for a player who has never been punished, lowest punishment for each level. Clean is set to false when a player is punished bellow in the code.
+      	set {%arg 1%.punish.chatlevel.1.message} to "Warn player! This is the first level 1 chat offense!"
+      	set {%arg 1%.punish.chatlevel.1.command} to ""
+      	set {%arg 1%.punish.chatlevel.1.pastoffences} to 0
+#Warning saying players has to be warned first (First level 1 chat offense).
+				set {%arg 1%.punish.chatlevel.2.message} to "1 Hour."
+      	set {%arg 1%.punish.chatlevel.2.command} to ""
+      	set {%arg 1%.punish.chatlevel.2.pastoffences} to 0
+#Lowest punishment for chat level 2 as this is first offense.
+				set {%arg 1%.punish.chatlevel.3.message} to "30 Days."
+      	set {%arg 1%.punish.chatlevel.3.command} to ""
+      	set {%arg 1%.punish.chatlevel.3.pastoffences} to 0
+#Lowest punishment for chat level 3 as this is first offense.
+				set {%arg 1%.punish.clientlevel.1.message} to "Warn player! This is the first level 1 chat offense!"
+      	set {%arg 1%.punish.clientlevel.1.command} to ""
+      	set {%arg 1%.punish.clientlevel.1.pastoffences} to 0
+#Warning saying players has to be warned first (First level 1 client offense).
+				set {%arg 1%.punish.clientlevel.2.message} to ""
+				set {%arg 1%.punish.clientlevel.2.command} to ""
+				set {%arg 1%.punish.clientlevel.2.pastoffences} to 0
+#Lowest punishment for client level 2 as this is first offense.
+				set {%arg 1%.punish.clientlevel.3.message} to ""
+				set {%arg 1%.punish.clientlevel.3.command} to ""
+				set {%arg 1%.punish.clientlevel.3.pastoffences} to 0
+#Lowest punishment for client level 3 as this is first offense.
+			else:
+#Setting variables for level 1 chat offenses depending on amount of times repeated. (Total chances = 10)
+				if {%arg 1%.punish.chatlevel.1.pastoffences} = 1:
+					set {%arg 1%.punish.chatlevel.1.message} to "2 Hours."
+					set {%arg 1%.punish.chatlevel.1.command} to ""
+				if {%arg 1%.punish.chatlevel.1.pastoffences} = 2:
+					set {%arg 1%.punish.chatlevel.1.message} to "4 Hours."
+					set {%arg 1%.punish.chatlevel.1.command} to ""
+				if {%arg 1%.punish.chatlevel.1.pastoffences} = 3:
+					set {%arg 1%.punish.chatlevel.1.message} to "8 Hours."
+					set {%arg 1%.punish.chatlevel.1.command} to ""
+				if {%arg 1%.punish.chatlevel.1.pastoffences} = 4:
+					set {%arg 1%.punish.chatlevel.1.message} to "2 Days."
+					set {%arg 1%.punish.chatlevel.1.command} to ""
+				if {%arg 1%.punish.chatlevel.1.pastoffences} = 5:
+					set {%arg 1%.punish.chatlevel.1.message} to "4 Days."
+					set {%arg 1%.punish.chatlevel.1.command} to ""
+				if {%arg 1%.punish.chatlevel.1.pastoffences} = 6:
+					set {%arg 1%.punish.chatlevel.1.message} to "8 Days."
+					set {%arg 1%.punish.chatlevel.1.command} to ""
+				if {%arg 1%.punish.chatlevel.1.pastoffences} = 7:
+					set {%arg 1%.punish.chatlevel.1.message} to "15 Days."
+					set {%arg 1%.punish.chatlevel.1.command} to ""
+				if {%arg 1%.punish.chatlevel.1.pastoffences} = 8:
+					set {%arg 1%.punish.chatlevel.1.message} to "30 Days."
+					set {%arg 1%.punish.chatlevel.1.command} to ""
+				if {%arg 1%.punish.chatlevel.1.pastoffences} = 9:
+					set {%arg 1%.punish.chatlevel.1.message} to "Permanent."
+					set {%arg 1%.punish.chatlevel.1.command} to ""
+#Setting variables for level 2 chat offenses depending on amount of times repeated. (Total chances = 6)
+				if {%arg 1%.punish.chatlevel.2.pastoffences} = 1:
+					set {%arg 1%.punish.chatlevel.2.message} to "2 Days."
+					set {%arg 1%.punish.chatlevel.2.command} to ""
+				if {%arg 1%.punish.chatlevel.2.pastoffences} = 2:
+					set {%arg 1%.punish.chatlevel.2.message} to "8 Days."
+					set {%arg 1%.punish.chatlevel.2.command} to ""
+				if {%arg 1%.punish.chatlevel.2.pastoffences} = 3:
+					set {%arg 1%.punish.chatlevel.2.message} to "15 Days."
+					set {%arg 1%.punish.chatlevel.2.command} to ""
+				if {%arg 1%.punish.chatlevel.2.pastoffences} = 4:
+					set {%arg 1%.punish.chatlevel.2.message} to "30 Days."
+					set {%arg 1%.punish.chatlevel.2.command} to ""
+				if {%arg 1%.punish.chatlevel.2.pastoffences} = 5:
+					set {%arg 1%.punish.chatlevel.2.message} to "Permanent."
+					set {%arg 1%.punish.chatlevel.2.command} to
+#Setting variables for level 3 chat offenses depending on amount of times repeated. (Total chances = 2)
+				if {%arg 1%.punish.chatlevel.3.pastoffences} = 1:
+					set {%arg 1%.punish.chatlevel.3.message} to "Permanent."
+					set {%arg 1%.punish.chatlevel.3.command} to ""
+#Setting variables for level 1 client offenses depending on amount of times repeated. (Total chances = 7)
+				if {%arg 1%.punish.clientlevel.1.pastoffences} = 1:
+					set {%arg 1%.punish.clientlevel.1.message} to "1.5 Hours."
+					set {%arg 1%.punish.clientlevel.1.command} to ""
+				if {%arg 1%.punish.clientlevel.1.pastoffences} = 2:
+					set {%arg 1%.punish.clientlevel.1.message} to "4 Days."
+					set {%arg 1%.punish.clientlevel.1.command} to ""
+				if {%arg 1%.punish.clientlevel.1.pastoffences} = 3:
+					set {%arg 1%.punish.clientlevel.1.message} to "8 Day."
+					set {%arg 1%.punish.clientlevel.1.command} to ""
+				if {%arg 1%.punish.clientlevel.1.pastoffences} = 4:
+					set {%arg 1%.punish.clientlevel.1.message} to "15 Days."
+					set {%arg 1%.punish.clientlevel.1.command} to ""
+				if {%arg 1%.punish.clientlevel.1.pastoffences} = 5:
+					set {%arg 1%.punish.clientlevel.1.message} to "30 Days."
+					set {%arg 1%.punish.clientlevel.1.command} to ""
+				if {%arg 1%.punish.clientlevel.1.pastoffences} = 6:
+					set {%arg 1%.punish.clientlevel.1.message} to "Permanent"
+					set {%arg 1%.punish.clientlevel.1.command} to ""
+#Setting variables for level 2 client offenses depending on amount of times repeated. (Total chances = 4)
+				if {%arg 1%.punish.clientlevel.2.pastoffences} = 1:
+					set {%arg 1%.punish.clientlevel.2.message} to "8 Days."
+					set {%arg 1%.punish.clientlevel.2.command} to ""
+				if {%arg 1%.punish.clientlevel.2.pastoffences} = 2:
+					set {%arg 1%.punish.clientlevel.2.message} to "15 Days."
+					set {%arg 1%.punish.clientlevel.2.command} to ""
+				if {%arg 1%.punish.clientlevel.2.pastoffences} = 3:
+					set {%arg 1%.punish.clientlevel.2.message} to "30 Days."
+					set {%arg 1%.punish.clientlevel.2.command} to ""
+				if {%arg 1%.punish.clientlevel.2.pastoffences} = 3:
+					set {%arg 1%.punish.clientlevel.2.message} to "Permanent"
+					set {%arg 1%.punish.clientlevel.2.command} to ""
+#Setting variables for level 3 client offenses depending on amount of times repeated. (Total chances = 2)
+				if {%arg 1%.punish.clientlevel.3.pastoffences} = 1:
+					set {%arg 1%.punish.clientlevel.3.message} to "Permanent"
+					set {%arg 1%.punish.clientlevel.3.command} to ""
+			open chest with 6 rows named "            Punish" to player
+			format slot 0 of player with 5 of steak named "Item 1" to close then run "say The first item was clicked! Menu Closed!"
+ 			format slot 1 of player with fire named "Close Menu" with lore "I will close this menu.||Nothing more, nothing less." to close
+			format slot 2 of player with gold ingot to run [broadcast "lambda testing"]
+
+#------------------------------------------------------------------#
+#Staff commands and utilities                                      #
+#------------------------------------------------------------------#
