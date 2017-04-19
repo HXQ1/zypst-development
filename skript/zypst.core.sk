@@ -1,147 +1,536 @@
 #------------------------------------------------------------------#
-#Variables                                                         #
-#------------------------------------------------------------------#
-#
-
-
-#------------------------------------------------------------------#
 #Options                                                           #
 #------------------------------------------------------------------#
+script options:
+    $ developer mode
 options:
-	prefix = "&2Zypst >>&7"
+	prefix : &5Zypst >>&7
 
 #------------------------------------------------------------------#
 #Initiation                                                        #
 #------------------------------------------------------------------#
-
-
-#------------------------------------------------------------------#
-#Punish                                                            #
-#------------------------------------------------------------------#
-command /punish [<offline player>]:
-	aliases: /p,
-	permission: zypst.apprentice
-	permission message: {@prefix} &7This command/action requires you to have the rank "&2Apprentice&7".
-  trigger:
-    if arg-2 is not set:
-			message "{@prefix} Correct usage: /p <player>."
-		else:
-      if {%arg 1%.punish.clean} is true:
-#Sets punishing variables for a player who has never been punished, lowest punishment for each level. Clean is set to false when a player is punished bellow in the code.
-      	set {%arg 1%.punish.chatlevel.1.message} to "Warn player! This is the first level 1 chat offense!"
-      	set {%arg 1%.punish.chatlevel.1.command} to ""
-      	set {%arg 1%.punish.chatlevel.1.pastoffences} to 0
-#Warning saying players has to be warned first (First level 1 chat offense).
-				set {%arg 1%.punish.chatlevel.2.message} to "1 Hour."
-      	set {%arg 1%.punish.chatlevel.2.command} to ""
-      	set {%arg 1%.punish.chatlevel.2.pastoffences} to 0
-#Lowest punishment for chat level 2 as this is first offense.
-				set {%arg 1%.punish.chatlevel.3.message} to "30 Days."
-      	set {%arg 1%.punish.chatlevel.3.command} to ""
-      	set {%arg 1%.punish.chatlevel.3.pastoffences} to 0
-#Lowest punishment for chat level 3 as this is first offense.
-				set {%arg 1%.punish.clientlevel.1.message} to "Warn player! This is the first level 1 chat offense!"
-      	set {%arg 1%.punish.clientlevel.1.command} to ""
-      	set {%arg 1%.punish.clientlevel.1.pastoffences} to 0
-#Warning saying players has to be warned first (First level 1 client offense).
-				set {%arg 1%.punish.clientlevel.2.message} to ""
-				set {%arg 1%.punish.clientlevel.2.command} to ""
-				set {%arg 1%.punish.clientlevel.2.pastoffences} to 0
-#Lowest punishment for client level 2 as this is first offense.
-				set {%arg 1%.punish.clientlevel.3.message} to ""
-				set {%arg 1%.punish.clientlevel.3.command} to ""
-				set {%arg 1%.punish.clientlevel.3.pastoffences} to 0
-#Lowest punishment for client level 3 as this is first offense.
-			else:
-#Setting variables for level 1 chat offenses depending on amount of times repeated. (Total chances = 10)
-				if {%arg 1%.punish.chatlevel.1.pastoffences} = 1:
-					set {%arg 1%.punish.chatlevel.1.message} to "2 Hours."
-					set {%arg 1%.punish.chatlevel.1.command} to ""
-				if {%arg 1%.punish.chatlevel.1.pastoffences} = 2:
-					set {%arg 1%.punish.chatlevel.1.message} to "4 Hours."
-					set {%arg 1%.punish.chatlevel.1.command} to ""
-				if {%arg 1%.punish.chatlevel.1.pastoffences} = 3:
-					set {%arg 1%.punish.chatlevel.1.message} to "8 Hours."
-					set {%arg 1%.punish.chatlevel.1.command} to ""
-				if {%arg 1%.punish.chatlevel.1.pastoffences} = 4:
-					set {%arg 1%.punish.chatlevel.1.message} to "2 Days."
-					set {%arg 1%.punish.chatlevel.1.command} to ""
-				if {%arg 1%.punish.chatlevel.1.pastoffences} = 5:
-					set {%arg 1%.punish.chatlevel.1.message} to "4 Days."
-					set {%arg 1%.punish.chatlevel.1.command} to ""
-				if {%arg 1%.punish.chatlevel.1.pastoffences} = 6:
-					set {%arg 1%.punish.chatlevel.1.message} to "8 Days."
-					set {%arg 1%.punish.chatlevel.1.command} to ""
-				if {%arg 1%.punish.chatlevel.1.pastoffences} = 7:
-					set {%arg 1%.punish.chatlevel.1.message} to "15 Days."
-					set {%arg 1%.punish.chatlevel.1.command} to ""
-				if {%arg 1%.punish.chatlevel.1.pastoffences} = 8:
-					set {%arg 1%.punish.chatlevel.1.message} to "30 Days."
-					set {%arg 1%.punish.chatlevel.1.command} to ""
-				if {%arg 1%.punish.chatlevel.1.pastoffences} = 9:
-					set {%arg 1%.punish.chatlevel.1.message} to "Permanent."
-					set {%arg 1%.punish.chatlevel.1.command} to ""
-#Setting variables for level 2 chat offenses depending on amount of times repeated. (Total chances = 6)
-				if {%arg 1%.punish.chatlevel.2.pastoffences} = 1:
-					set {%arg 1%.punish.chatlevel.2.message} to "2 Days."
-					set {%arg 1%.punish.chatlevel.2.command} to ""
-				if {%arg 1%.punish.chatlevel.2.pastoffences} = 2:
-					set {%arg 1%.punish.chatlevel.2.message} to "8 Days."
-					set {%arg 1%.punish.chatlevel.2.command} to ""
-				if {%arg 1%.punish.chatlevel.2.pastoffences} = 3:
-					set {%arg 1%.punish.chatlevel.2.message} to "15 Days."
-					set {%arg 1%.punish.chatlevel.2.command} to ""
-				if {%arg 1%.punish.chatlevel.2.pastoffences} = 4:
-					set {%arg 1%.punish.chatlevel.2.message} to "30 Days."
-					set {%arg 1%.punish.chatlevel.2.command} to ""
-				if {%arg 1%.punish.chatlevel.2.pastoffences} = 5:
-					set {%arg 1%.punish.chatlevel.2.message} to "Permanent."
-					set {%arg 1%.punish.chatlevel.2.command} to
-#Setting variables for level 3 chat offenses depending on amount of times repeated. (Total chances = 2)
-				if {%arg 1%.punish.chatlevel.3.pastoffences} = 1:
-					set {%arg 1%.punish.chatlevel.3.message} to "Permanent."
-					set {%arg 1%.punish.chatlevel.3.command} to ""
-#Setting variables for level 1 client offenses depending on amount of times repeated. (Total chances = 7)
-				if {%arg 1%.punish.clientlevel.1.pastoffences} = 1:
-					set {%arg 1%.punish.clientlevel.1.message} to "1.5 Hours."
-					set {%arg 1%.punish.clientlevel.1.command} to ""
-				if {%arg 1%.punish.clientlevel.1.pastoffences} = 2:
-					set {%arg 1%.punish.clientlevel.1.message} to "4 Days."
-					set {%arg 1%.punish.clientlevel.1.command} to ""
-				if {%arg 1%.punish.clientlevel.1.pastoffences} = 3:
-					set {%arg 1%.punish.clientlevel.1.message} to "8 Day."
-					set {%arg 1%.punish.clientlevel.1.command} to ""
-				if {%arg 1%.punish.clientlevel.1.pastoffences} = 4:
-					set {%arg 1%.punish.clientlevel.1.message} to "15 Days."
-					set {%arg 1%.punish.clientlevel.1.command} to ""
-				if {%arg 1%.punish.clientlevel.1.pastoffences} = 5:
-					set {%arg 1%.punish.clientlevel.1.message} to "30 Days."
-					set {%arg 1%.punish.clientlevel.1.command} to ""
-				if {%arg 1%.punish.clientlevel.1.pastoffences} = 6:
-					set {%arg 1%.punish.clientlevel.1.message} to "Permanent"
-					set {%arg 1%.punish.clientlevel.1.command} to ""
-#Setting variables for level 2 client offenses depending on amount of times repeated. (Total chances = 4)
-				if {%arg 1%.punish.clientlevel.2.pastoffences} = 1:
-					set {%arg 1%.punish.clientlevel.2.message} to "8 Days."
-					set {%arg 1%.punish.clientlevel.2.command} to ""
-				if {%arg 1%.punish.clientlevel.2.pastoffences} = 2:
-					set {%arg 1%.punish.clientlevel.2.message} to "15 Days."
-					set {%arg 1%.punish.clientlevel.2.command} to ""
-				if {%arg 1%.punish.clientlevel.2.pastoffences} = 3:
-					set {%arg 1%.punish.clientlevel.2.message} to "30 Days."
-					set {%arg 1%.punish.clientlevel.2.command} to ""
-				if {%arg 1%.punish.clientlevel.2.pastoffences} = 3:
-					set {%arg 1%.punish.clientlevel.2.message} to "Permanent"
-					set {%arg 1%.punish.clientlevel.2.command} to ""
-#Setting variables for level 3 client offenses depending on amount of times repeated. (Total chances = 2)
-				if {%arg 1%.punish.clientlevel.3.pastoffences} = 1:
-					set {%arg 1%.punish.clientlevel.3.message} to "Permanent"
-					set {%arg 1%.punish.clientlevel.3.command} to ""
-			open chest with 6 rows named "            Punish" to player
-			format slot 0 of player with 5 of steak named "Item 1" to close then run "say The first item was clicked! Menu Closed!"
- 			format slot 1 of player with fire named "Close Menu" with lore "I will close this menu.||Nothing more, nothing less." to close
-			format slot 2 of player with gold ingot to run [broadcast "lambda testing"]
+on join:
+	if player has permission "zypst.apprentice" or "zypst.mod" or "zypst.srmod" or "zypst.admin" or "zypst.developer":
+		set {p.%player%.punishcount} to 0
+	set {p.%player%.punished} to false
+	set {p.%player%.chat.warned} to false
+	set {p.%player%.client.warned} to false
+	set {p.%player%.occupier} to "0"
 
 #------------------------------------------------------------------#
 #Staff commands and utilities                                      #
 #------------------------------------------------------------------#
+#------------------------------------------------------------------#
+#Punishment systen                                                 #
+#------------------------------------------------------------------#
+command /punish [<offline player>] <text>:
+	aliases: /p
+	permission: zypst.apprentice
+	permission message: {@prefix} &7This command/action requires you to have the rank "&2Apprentice&7".
+	trigger:
+		if arg-1 or arg-2 is not set:
+			message "{@prefix} Correct usage: /p <player> <reason>"
+		if arg-1 and arg-2 is set:
+			if {p.%arg 1%.punished} is false:
+				set {p.%arg-1%.chat1.command} to "warn %arg-1%"
+				set {p.%arg-1%.chat1.message} to "Warn player!"
+				set {p.%arg-1%.chat1.poffences} to 0
+				set {p.%arg-1%.chat2.message} to "1 Day"
+				set {p.%arg-1%.chat2.command} to "tempmute %arg-1% 1d"
+				set {p.%arg-1%.chat2.poffences} to 0
+				set {p.%arg-1%.chat3.message} to "30 Days"
+				set {p.%arg-1%.chat3.command} to "tempmute %arg-1% 30d"
+				set {p.%arg-1%.chat3.poffences} to 0
+				set {p.%arg-1%.client1.message} to "Warn player!"
+				set {p.%arg-1%.client1.command} to "warn %arg-1%"
+				set {p.%arg-1%.client1.poffences} to 0
+				set {p.%arg-1%.client2.message} to "4 Days"
+				set {p.%arg-1%.client2.command} to "tempban %arg-1% 4d"
+				set {p.%arg-1%.client2.poffences} to 0
+				set {p.%arg-1%.client3.message} to "30 Days"
+				set {p.%arg-1%.client3.poffences} to 0
+			else:
+				if {p.%arg-1%.chat1.poffences} = 1:
+					set {p.%arg-1%.chat1.message} to "2 Hours"
+					set {p.%arg-1%.chat1.command} to "tempmute %arg-1% 2h"
+				if {p.%arg-1%.chat1.poffences} = 2:
+					set {p.%arg-1%.chat1.message} to "4 Hours"
+					set {p.%arg-1%.chat1.command} to "tempmute %arg-1% 4h"
+				if {p.%arg-1%.chat1.poffences} = 3:
+					set {p.%arg-1%.chat1.message} to "8 Hours"
+					set {p.%arg-1%.chat1.command} to "tempmute %arg-1% 8h"
+				if {p.%arg-1%.chat1.poffences} = 4:
+					set {p.%arg-1%.chat1.message} to "2 Days"
+					set {p.%arg-1%.chat1.command} to "tempmute %arg-1% 2d"
+				if {p.%arg-1%.chat1.poffences} = 5:
+					set {p.%arg-1%.chat1.message} to "4 Days"
+					set {p.%arg-1%.chat1.command} to "tempmute %arg-1% 4d"
+				if {p.%arg-1%.chat1.poffences} = 6:
+					set {p.%arg-1%.chat1.message} to "8 Days"
+					set {p.%arg-1%.chat1.command} to "tempmute %arg-1% 8d"
+				if {p.%arg-1%.chat1.poffences} = 7:
+					set {p.%arg-1%.chat1.message} to "15 Days"
+					set {p.%arg-1%.chat1.command} to "tempmute %arg-1% 15d"
+				if {p.%arg-1%.chat1.poffences} = 8:
+					set {p.%arg-1%.chat1.message} to "30 Days"
+					set {p.%arg-1%.chat1.command} to "tempmute %arg-1% 30d"
+				if {p.%arg-1%.chat1.poffences} = 9:
+					set {p.%arg-1%.chat1.message} to "Permanent"
+					set {p.%arg-1%.chat1.command} to "mute %arg-1%"
+				if {p.%arg-1%.chat2.poffences} = 1:
+					set {p.%arg-1%.chat2.message} to "2 Days"
+					set {p.%arg-1%.chat2.command} to "tempmute %arg-1% 2d"
+				if {p.%arg-1%.chat2.poffences} = 2:
+					set {p.%arg-1%.chat2.message} to "8 Days"
+					set {p.%arg-1%.chat2.command} to "tempmute %arg-1% 8d"
+				if {p.%arg-1%.chat2.poffences} = 3:
+					set {p.%arg-1%.chat2.message} to "15 Days"
+					set {p.%arg-1%.chat2.command} to "tempmute %arg-1% 15d"
+				if {p.%arg-1%.chat2.poffences} = 4:
+					set {p.%arg-1%.chat2.message} to "30 Days."
+					set {p.%arg-1%.chat2.command} to "tempmute %arg-1%"
+				if {p.%arg-1%.chat2.poffences} = 5:
+					set {p.%arg-1%.chat2.message} to "Permanent"
+					set {p.%arg-1%.chat2.command} to "mute %arg-1%"
+				if {p.%arg-1%.chat3.poffences} = 1:
+					set {p.%arg-1%.chat3.message} to "Permanent"
+					set {p.%arg-1%.chat3.command} to "mute %arg-1%"
+				if {p.%arg-1%.client1.poffences} = 1:
+					set {p.%arg-1%.client1.message} to "1.5 Days"
+					set {p.%arg-1%.client1.command} to "tempban %arg-1% 1.5d"
+				if {p.%arg-1%.client1.poffences} = 2:
+					set {p.%arg-1%.client1.message} to "4 Days"
+					set {p.%arg-1%.client1.command} to "tempban %arg-1% 4d"
+				if {p.%arg-1%.client1.poffences} = 3:
+					set {p.%arg-1%.client1.message} to "8 Day"
+					set {p.%arg-1%.client1.command} to "tempban %arg-1% 8d"
+				if {p.%arg-1%.client1.poffences} = 4:
+					set {p.%arg-1%.client1.message} to "15 Days"
+					set {p.%arg-1%.client1.command} to "tempban %arg-1% 15d"
+				if {p.%arg-1%.client1.poffences} = 5:
+					set {p.%arg-1%.client1.message} to "30 Days"
+					set {p.%arg-1%.client1.command} to "tempban %arg-1% 30d"
+				if {p.%arg-1%.client1.poffences} = 6:
+					set {p.%arg-1%.client1.message} to "Permanent"
+					set {p.%arg-1%.client1.command} to "ban %arg-1%"
+				if {p.%arg-1%.client2.poffences} = 1:
+					set {p.%arg-1%.client2.message} to "8 Days"
+					set {p.%arg-1%.client2.command} to "tempban %arg-1% 8d"
+				if {p.%arg-1%.client2.poffences} = 2:
+					set {p.%arg-1%.client2.message} to "15 Days"
+					set {p.%arg-1%.client2.command} to "tempban %arg-1% 15d"
+				if {p.%arg-1%.client2.poffences} = 3:
+					set {p.%arg-1%.client2.message} to "30 Days"
+					set {p.%arg-1%.client2.command} to "tempban %arg-1% 30d"
+				if {p.%arg-1%.client2.poffences} = 3:
+					set {p.%arg-1%.client2.message} to "Permanent"
+					set {p.%arg-1%.client2.command} to "ban %arg-1%"
+				if {p.%arg-1%.client3.poffences} = 1:
+					set {p.%arg-1%.client3.message} to "Permanent"
+					set {p.%arg-1%.client3.command} to "ban %arg-1%"
+
+			if player has permission "zypst.apprentice" or "zypst.mod" or "zypst.srmod" or "zypst.admin" or "zypst.developer":
+				open chest with 3 rows named "&lPUNISHMENT GUI" to player
+				format slot 8 of player with skull of arg-1 named "&b&l%arg-1%'s history"  to close
+				format slot 17 of player with book named "&b&lPunishment Guide" to close
+				format slot 26 of player with lava bucket named "&4&lExit GUI" to close
+
+				format slot 0 of player with name tag named "&f&lChat Offences" to be unstealable
+				format slot 2 of player with bonemeal named "&f&lWarn Chat Offence" to close then run [make console execute command "warnchat %arg-1% %arg-2% %player%"]
+				if {p.%arg 1%.chat.warned} = false:
+					format slot 3 of player with dark green dye named "&2&lWarn for chat before!" to be unstealable
+				else:
+					format slot 3 of player with dark green dye named "&2&lLevel 1 Chat Offence" to close then run [make console execute command "chat1 %arg-1% %arg-2% %player%"]
+
+				format slot 9 of player with diamond sword named "&f&lClient Offences" to be unstealable
+				format slot 11 of player with bonemeal named "&f&lWarn Client" to close then run [make console execute command "warnclient %arg-1% %arg-2% %player%"]
+				if {p.%arg 1%.client.warned} = false:
+					format slot 12 of player with dark green dye named "&2&lWarn for client before!" to be unstealable
+				else:
+					format slot 12 of player with dark green dye named "&2&lLevel 1 Client Offence" to close then run [make console execute command "client2 %arg-1% %arg-2% %player%"]
+
+				format slot 18 of player with stick named "&f&lOther Actions" to be unstealable
+
+			if player has permission "zypst.mod" or "zypst.srmod" or "zypst.admin" or "zypst.developer":
+				format slot 4 of player with dandelion yellow dye named "&6&lLevel 2 Chat Offence" to close then run [make console execute command "chat2 %arg-1% %arg-2% %player%"]
+				format slot 5 of player with rose red named "&4&lLevel 3 Chat Offence" to close then run [make console execute command "chat3 %arg-1% %arg-2% %player%"]
+
+				format slot 13 of player with dandelion yellow dye named "&6&lLevel 2 Client Offence" to close then run [make console execute command "client2 %arg-1% %arg-2% %player%"]
+				format slot 14 of player with rose red named "&4&lLevel 3 Client Offence" to close then run [make console execute command "client3 %arg-1% %arg-2% %player%"]
+
+				format slot 22 of player with rose red named "&4&lIP Ban" to close then run [make console execute command "%arg-1% %arg-2% %player%"]
+
+			if player has permission "zypst.srmod" or "zypst.admin" or "zypst.developer":
+				format slot 20 of player with coal item named "&lFalsely Punished?" to close then run [make console execute command "%arg-1% %arg-2% %player%"]
+
+			if player has permission "zypst.admin" or "zypst.developer":
+				format slot 21 of player with dark green dye named "&2&lClear History" to close then run [make console execute command "warnchat %arg-1% %arg-2% %player%"]
+
+command /warnchat <player> <text> <player>:
+	trigger:
+		if {p.%arg 1%.chat.warned} = true:
+			message "{@prefix} %arg-1% has a warning alread4ey for a level 1 chat offence!" to arg-3
+		else:
+			set {p.%arg 1%.chat.warned} to true
+			set {p.%arg 1%.punished} to true
+			add 1 to {p.%arg-1%.chat1.poffences}
+			add 1 to {p.%arg-3%.punishcount}
+			set {p.puid.%arg-3%.%{p.%arg-3%.punishcount}%} to "%arg-1%.ChatWarn.%arg-2%.%arg-3%.%{p.%arg-3%.punishcount}%"
+			make console execute "%{p.%arg-1%.chat1.command}% %{p.puid.%arg-3%.%{p.%arg-3%.punishcount}%}%"
+			message "{@prefix} &7%arg-1% has been warned!" to arg-3
+			message "{@prefix} &7Reason: %{p.puid.%arg-3%.%{p.%arg-3%.punishcount}%}%" to arg-3
+
+command /warnclient <player> <text> <player>:
+	trigger:
+		if {p.%arg 1%.client.warned} = true:
+			message "{@prefix} %arg-1% has a warning already for a level 1 client offence!" to arg-3
+		else:
+			set {p.%arg 1%.client.warned} to true
+			set {p.%arg 1%.punished} to true
+			add 1 to {p.%arg-1%.client1.poffences}
+			add 1 to {p.%arg-3%.punishcount}
+			set {p.puid.%arg-3%.%{p.%arg-3%.punishcount}%} to "%arg-1%.ClientWarn.%arg-2%.%arg-3%.%{p.%arg-3%.punishcount}%"
+			make console execute "%{p.%arg-1%.chat1.command}% %{p.puid.%arg-3%.%{p.%arg-3%.punishcount}%}%"
+			message "{@prefix} &7%arg-1% has been warned!" to arg-3
+			message "{@prefix} &7Reason: %{p.puid.%arg-3%.%{p.%arg-3%.punishcount}%}%" to arg-3
+
+command /chat1 <player> <text> <player>:
+	trigger:
+		set {p.%arg 1%.punished} to true
+		add 1 to {p.%arg-1%.chat1.poffences}
+		add 1 to {p.%arg-3%.punishcount}
+		set {p.puid.%arg-3%.%{p.%arg-3%.punishcount}%} to "%arg 1%.Chat1.%arg 2%.%{p.%arg-1%.chat1.message}%.%{p.%arg-1%.chat1.poffences}%.%arg 3%.p.%{p.%arg-3%.punishcount}%"
+		make console execute "unmute %arg-1%"
+		message "{@prefix} &7%arg-1% has been punished!" to arg-3
+		message "{@prefix} &7Reason: %{p.puid.%arg-3%.%{p.%arg-3%.punishcount}%}%" to arg-3
+		wait 1 second
+		make console execute "%{p.%arg-1%.chat1.command}% %{p.puid.%arg-3%.%{p.%arg-3%.punishcount}%}%"
+
+command /chat2 <player> <text> <player>:
+	trigger:
+		set {p.%arg 1%.punished} to true
+		add 1 to {p.%arg-1%.chat2.poffences}
+		add 1 to {p.%arg-3%.punishcount}
+		set {p.puid.%arg-3%.%{p.%arg-3%.punishcount}%} to "%arg 1%.Chat2.%arg 2%.%{p.%arg-1%.chat2.message}%.%{p.%arg-1%.chat2.poffences}%.%arg 3%.p.%{p.%arg-3%.punishcount}%"
+		make console execute "unmute %arg-1%"
+		message "{@prefix} &7%arg-1% has been punished!" to arg-3
+		message "{@prefix} &7Reason: %{p.puid.%arg-3%.%{p.%arg-3%.punishcount}%}%" to arg-3
+		wait 1 second
+		make console execute "%{p.%arg-1%.chat2.command}% %{p.puid.%arg-3%.%{p.%arg-3%.punishcount}%}%"
+
+command /chat3 <player> <text> <player>:
+	trigger:
+		set {p.%arg 1%.punished} to true
+		add 1 to {p.%arg-1%.chat3.poffences}
+		add 1 to {p.%arg-3%.punishcount}
+		set {p.puid.%arg-3%.%{p.%arg-3%.punishcount}%} to "%arg 1%.Chat3.%arg 2%.%{p.%arg-1%.chat3.message}%.%{p.%arg-1%.chat3.poffences}%.%arg 3%.p.%{p.%arg-3%.punishcount}%"
+		make console execute "unmute %arg-1%"
+		message "{@prefix} &7%arg-1% has been punished!" to arg-3
+		message "{@prefix} &7Reason: %{p.puid.%arg-3%.%{p.%arg-3%.punishcount}%}%" to arg-3
+		wait 1 second
+		make console execute "%{p.%arg-1%.chat3.command}% %{p.puid.%arg-3%.%{p.%arg-3%.punishcount}%}%"
+
+command /client1 <player> <text> <player>:
+	trigger:
+		set {p.%arg 1%.punished} to true
+		add 1 to {p.%arg-1%.client1.poffences}
+		add 1 to {p.%arg-3%.punishcount}
+		set {p.puid.%arg-3%.%{p.%arg-3%.punishcount}%} to "%arg 1%.client1.%arg 2%.%{p.%arg-1%.client1.message}%.%{p.%arg-1%.client1.poffences}%.%arg 3%.p.%{p.%arg-3%.punishcount}%"
+		make console execute "unmute %arg-1%"
+		message "{@prefix} &7%arg-1% has been punished!" to arg-3
+		message "{@prefix} &7Reason: %{p.puid.%arg-3%.%{p.%arg-3%.punishcount}%}%" to arg-3
+		wait 1 second
+		make console execute "%{p.%arg-1%.client1.command}% %{p.puid.%arg-3%.%{p.%arg-3%.punishcount}%}%"
+
+command /client2 <player> <text> <player>:
+	trigger:
+		set {p.%arg 1%.punished} to true
+		add 1 to {p.%arg-1%.client2.poffences}
+		add 1 to {p.%arg-3%.punishcount}
+		set {p.puid.%arg-3%.%{p.%arg-3%.punishcount}%} to "%arg 1%.client2.%arg 2%.%{p.%arg-1%.client2.message}%.%{p.%arg-1%.client2.poffences}%.%arg 3%.p.%{p.%arg-3%.punishcount}%"
+		make console execute "unmute %arg-1%"
+		message "{@prefix} &7%arg-1% has been punished!" to arg-3
+		message "{@prefix} &7Reason: %{p.puid.%arg-3%.%{p.%arg-3%.punishcount}%}%" to arg-3
+		wait 1 second
+		make console execute "%{p.%arg-1%.client2.command}% %{p.puid.%arg-3%.%{p.%arg-3%.punishcount}%}%"
+
+command /client3 <player> <text> <player>:
+	trigger:
+		set {p.%arg 1%.punished} to true
+		add 1 to {p.%arg-1%.client3.poffences}
+		add 1 to {p.%arg-3%.punishcount}
+		set {p.puid.%arg-3%.%{p.%arg-3%.punishcount}%} to "%arg 1%.client3.%arg 2%.%{p.%arg-1%.client3.message}%.%{p.%arg-1%.client3.poffences}%.%arg 3%.p.%{p.%arg-3%.punishcount}%"
+		make console execute "unmute %arg-1%"
+		message "{@prefix} &7%arg-1% has been punished!" to arg-3
+		message "{@prefix} &7Reason: %{p.puid.%arg-3%.%{p.%arg-3%.punishcount}%}%" to arg-3
+		wait 1 second
+		make console execute "%{p.%arg-1%.client3.command}% %{p.puid.%arg-3%.%{p.%arg-3%.punishcount}%}%"
+
+command /clearhistory <player> <player>:
+	trigger:
+
+command /falselypunished  <player> <player>:
+	trigger:
+		open chest with 2 rows named "Falsely Banned?" to player
+		format slot 0 of player with name tag named "Chat Offences" to be unstealable
+		format slot 1 of player with white wool named "Warn Chat" to be unstealable
+		format slot 2 of player with light green wool named "Level 1 Chat" to close then run [subtract 1 from]
+		format slot 3 of player with yellow wool named "Level 2 Chat" to be unstealable
+		format slot 4 of player with red wool named "Level 3 Chat" to be unstealable
+		format slot 9 of player with iron sword named "Client Offences" to be unstealable
+		format slot 10 of player with white wool named "Warn Client" to be unstealable
+		format slot 11 of player with light green wool named "Level 1 Client" to be unstealable
+		format slot 12 of player with yellow wool named "Level 2 Client" to be unstealable
+		format slot 13 of player with red wool named "Level 3 Client" to be unstealable
+
+command /puid <text>:
+	trigger:
+		message "%{p.puid.%arg-1%}%"
+
+command /staffinitiate <player>:
+	trigger:
+		message "not done"
+
+#------------------------------------------------------------------#
+#                                                                  #
+#Administrative commands                                           #
+#                                                                  #
+#------------------------------------------------------------------#
+command /rank <player> <text>:
+	description: Sets player's rank.
+	usage: /rank <player> <rank>
+	permission: zypst.admin
+	permission message: This command requires rank Admin.
+	trigger:
+		make console execute command "/pex user %arg 1% group set %arg 2%"
+		message "%arg 1%'s rank has been set to %arg 2%."
+
+command /perm <text> <text>:
+	description: Adds a permission to a rank.
+	usage: /perm rank permmision
+	permission: zypst.admin
+	permission message: This requires rank Admin.
+	trigger:
+		make console execute command "/pex group %arg 1% add %arg 2%"
+		message "Permission %arg 2% has been added to rank %arg 1%"
+
+command /prefix <text> <text>:
+	description: Set's a ranks prefix.
+	usage: /prefix <rank> <prefix>
+	permission: zypst.admin
+	permission message: This command requires rank Admin.
+	trigger:
+		make console execute command "/pex group %arg 1% prefix %arg 2%"
+		message "Ranks %arg 1%'s prefix has been set to %arg 2%."
+
+command /rankpriority <text> <text>:
+	description: Set's a ranks priority in default permission ladder.
+	usage: /rankpriorty <rank> <priority>
+	permission: zypst.admin
+	permission message: This command requires rank Admin.
+	aliases: /rankp, /rp
+	trigger:
+		make console execute command "/pex group %arg 1% rank %arg 2%"
+		message "%arg 1% has been set to priority %arg 2%."
+
+command /removerank <player>:
+	description: Reset's a staff members rank rank.
+	usage: /removerank <player>
+	permission: zypst.admin
+	permission message: This command requires rank Admin.
+	aliases: /rr
+	trigger:
+		make console execute command "/pex user %arg 1% group set player"
+		message "%arg 1%'s rank has been reset."
+
+command /announce <text>:
+	description: Announces a message to all players.
+	usage: /announce <text>
+	permission: zypst.admin
+	permission message: This command requires rank Admin.
+	aliases: /anc
+	trigger:
+		message "&e&l[&4&lANNOUNCEMENT&e&l] &5&l%arg 1%" to all players
+
+command /skr:
+	description: Reloads all skripts.
+	usage: /skr
+	permission: zypst.admin
+	permission message: This command requires rank Admin.
+	trigger:
+		make player execute command "/skript reload all"
+
+#------------------------------------------------------------------#
+#                                                                  #
+#Transport Commands                                                #
+#                                                                  #
+#------------------------------------------------------------------#
+command /setkitpvplobby:
+	trigger:
+		set {kitpvplobby} to location of player
+		message "&d&lKitPvP lobby set to %{kitpvplobby}%"
+
+command /kitpvp:
+	aliases: /pvp
+	trigger:
+		if {incombat.%player%} is false:
+			teleport player to {kitpvplobby}
+			execute console command "/clear %player%"
+		else:
+			message "&6&lYou are currently combat tag, please wait for %{combatlogtime.%player%}% seconds before leaving."
+
+command /sethub:
+	trigger:
+		set {lobby} to location of player
+		message "&d&Lobby/Hub has been set to %{lobby}%"
+
+command /lobby:
+	aliases: /hub
+	trigger:
+		if {incombat.%player%} is false:
+			teleport player to {lobby}
+		else:
+			message "&6&lYou are currently combat tag, please wait for %{combatlogtime.%player%}% seconds before leaving."
+
+#------------------------------------------------------------------#
+#                                                                  #
+#Essentials                                                        #
+#                                                                  #
+#------------------------------------------------------------------#
+command /enchant [<enchantment type>]:
+	aliases: /enchantment
+	permission: zypst.enchant
+	permission message: &cYou don't have enough permission for this command!
+	trigger:
+		if arg 1 is not set:
+			message "&5Zypst >> &7Please specify an enchantment to apply."
+		if player's tool is air:
+			message "&5Zypst >> &7You cannot enchant air."
+		else:
+			enchant player's tool with arg 1
+			send "&5Zypst >> &7Your item has been enchanted with %arg 1%."
+
+command /clear [<player>]:
+	aliases: /ci, /clean, /clearinventory
+	permission: zypst.clearinventory
+	permission message: &cYou don't have enough permission for this command!
+	trigger:
+		if arg 1 is not set:
+			send "&5Zypst >> &7Your inventory has been cleared."
+			clear the player's inventory
+			stop
+		if arg 1 is set:
+			if player has permission "Zypst.clearinventory.others":
+				send "&5Zypst >> &7%arg 1%'s inventory has been cleared."
+				clear the inventory of arg 1
+
+command /gamemode [<text>] [<player>]:
+	aliases: /gm
+	permission: zypst.gamemode
+	permission message: &cYou don't have enough permission for this command!
+	trigger:
+		if arg 1 is not set:
+			send "&5Zypst >> &7You must specify a gamemode."
+			stop
+		if arg 1 is set:
+			if arg 2 is not set:
+				if arg 1 is "creative" or "c" or "1":
+					set player's gamemode to creative
+					send "&5Zypst >> &7Your gamemode has been set to creative."
+				if arg 1 is "survival" or "s" or "0":
+					set the player's gamemode to survival
+					send "&5Zypst >> &7Your gamemode has been set to survival."
+				if arg 1 is "adventure" or "a" or "2":
+					set player's gamemode to adventure
+					send "&5Zypst >> &7Your gamemode has been set to adventure."
+			if arg 2 is set:
+				if player has permission "zypst.gamemode.others":
+					if arg 1 is "creative" or "c" or "1":
+						set arg 2's gamemode to creative
+						send "&5Zypst >> &7%arg 2%'s gamemode has been set to creative."
+					if arg 1 is "survival" or "s" or "0":
+						set arg 2's gamemode to survival
+						send "&5Zypst >> &7%arg 2%'s gamemode has been set to survival."
+					if arg 1 is "adventure" or "a" or "2":
+						set arg 2's gamemode to adventure
+						send "&5Zypst >> &7%arg 2%'s gamemode has been set to adventure."
+
+command /heal [<player>]:
+	permission: zypst.heal
+	permission message: &cYou don't have enough permission for this command!
+	trigger:
+		if arg 1 is not set:
+			heal the player by 10 hearts
+			send "&5Zypst >> &7You have been healed."
+			execute console command "/feed %player%"
+		if arg 1 is set:
+			if player has permission "zypst.heal.others":
+				heal arg 1 by 10 hearts
+				send "&5Zypst >> &7You have been healed." to arg 1
+				send "&5Zypst >> &7%arg 1% has been healed."
+				execute console command "/feed %arg 1%"
+
+command /tpohere [<player>]:
+	permission: zypst.tpohere
+	permission message: &cYou don't have enough permission for this command!
+	trigger:
+		if arg 1 is not set:
+			send "&5Zypst >> &7You must specify a player to teleport to you."
+		if arg 1 is set:
+			set {back::%uuid of arg 1%} to location of arg 1
+			teleport arg 1 to the player
+			send "&5Zypst >> &7You have been teleported to %player%." to arg 1
+			send "&5Zypst >> &7%arg 1% has been teleported to you."
+
+command /tpo [<player>] [<player>]:
+	permission: zypst.tpo
+	permission message: &cYou don't have enough permission for this command!
+	trigger:
+		if arg 1 is not set:
+			send "&5Zypst >> &7You must specify a player to teleport to."
+		if arg 1 is set:
+			if arg 2 is not set:
+				set {back::%uuid of arg 1%} to location of arg 1
+				teleport the player to arg 1
+				send "&5Zypst >> &7You have been teleported to %arg 1%."
+			if arg 2 is set:
+				set {back::%uuid of arg 1%} to location of arg 1
+				teleport arg 1 to arg 2
+				send "&5Zypst >> &7You have been teleported to %arg 2%." to arg 1
+
+command /tpall [<player>]:
+	permission: zypst.tpall
+	permission message: &cYou don't have enough permission for this command!
+	trigger:
+		if arg 1 is not set:
+			loop all players:
+				teleport loop-player to the player
+			send "&5Zypst >> &7All players have been teleported to you."
+		if arg 1 is set:
+			loop all players:
+				teleport loop-player to arg 1
+			send "&5Zypst >> &7All players have been teleported to %arg 1%."
+
+command /tp [<player>] [<player>]:
+	aliases: /tele, /tp2p, /teleport
+	permission: zypst.tp
+	permission message: &cYou don't have enough permission for this command!
+	trigger:
+		if arg 1 is not set:
+			send "&5Zypst >> &7You must specify a player to teleport to."
+		if arg 1 is set:
+			if arg 2 is not set:
+				if {tptoggle::%uuid of arg 1%} is set:
+					send "&5Zypst >> &7%arg 1% has teleportation disabled."
+				else:
+					set {back::%uuid of player%} to location of player
+					teleport the player to arg 1
+					send "&5Zypst >> &7You have been teleported to %arg 1%."
+			if arg 2 is set:
+				if {tptoggle::%uuid of arg 1%} or {tptoggle::%uuid of arg 2%} are set:
+					send "&5Zypst >> &7One of the players you wish to teleport has teleportation disabled."
+				else:
+					set {back::%uuid of arg 1%} to location of arg 1
+					teleport arg 1 to arg 2
+					send "&5Zypst >> &7You have been teleported to %arg 2%." to arg 1
+					send "&5Zypst >> &7%arg 1% has been teleported to %arg 2%."
